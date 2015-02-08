@@ -1,0 +1,76 @@
+[user]
+    name = Your Name
+    email = hello@example.com
+
+[core]
+    excludesfile = /Users/USERNAME/.gitignore_global
+
+[alias]
+    # View abbreviated SHA, description, and history graph of the latest 20 commits
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+    st = status -s -b -unormal
+    df = diff --color --color-words --abbrev
+    br = branch
+    ci = commit
+    ca = !git add -A && git commit -av
+    co = checkout
+    rb = rebase
+    ps = push
+    cp = cherry-pick -x
+    solve = mergetool --tool=vimdiff
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
+    cleanup = git clean -df
+    unstage = reset HEAD
+    uncommit = reset --soft HEAD^
+    me = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --author="Thanos"
+
+    dh = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    dci = !"git --no-pager diff --patch-with-stat origin/$(git rev-parse --abbrev-ref HEAD)..HEAD; echo \"\n---> $(git rev-list --count HEAD origin/$(git rev-parse --abbrev-ref HEAD)...HEAD) commit(s) total\""
+    dlast = diff HEAD^
+
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(blue)<%an>%Creset' --abbrev-commit --
+    g = grep -I
+    hist = log --graph --color=always --pretty='[%C(cyan)%h%Creset]%C(cyan)%d%Creset %s' --all
+    rank = shortlog --numbered --summary --email --no-merges --since='3 months'
+    snapshot = !git stash save "snapshot: $(date)" && git stash apply 'stash@{0}'
+    snapshots = !git stash list --grep snapshot
+
+[color]
+    # Use colors in Git commands that are capable of colored output when
+    # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold # line info
+    old = red # deletions
+    new = green # additions
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[diff]
+    # Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
+    # instead of a/b/c/d as prefixes for patches
+    mnemonicprefix = true
+    algorithm = patience
+    new = green
+
+[help]
+    # Automatically correct and execute mistyped commands
+    autocorrect = 1
+
+[push]
+    # Use the Git 1.x.x default to avoid errors on machines with old Git
+    # installations. To use `simple` instead, add this to your `~/.extra` file:
+    # `git config --global push.default simple`. See http://git.io/mMah-w.
+    default = matching
